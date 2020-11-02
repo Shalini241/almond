@@ -14,7 +14,7 @@ class Dashboard extends StatelessWidget {
         actions: [],
       ),
       body: ListView.builder(
-        itemBuilder: (ctx, i) => TopicCard(),
+        itemBuilder: (ctx, i) => TopicCard(i),
         itemCount: 5,
       ),
       drawer: AppDrawer(),

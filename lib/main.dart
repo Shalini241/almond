@@ -1,4 +1,5 @@
 import 'package:almond/screens/dashboard.dart';
+import 'package:almond/screens/formula_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Dashboard(),
+      routes: {
+        FormulaScreen.routeName: (ctx) => FormulaScreen(1),
+      },
     );
   }
 }

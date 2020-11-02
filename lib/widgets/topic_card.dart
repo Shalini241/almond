@@ -1,7 +1,10 @@
+import 'package:almond/screens/formula_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TopicCard extends StatelessWidget {
+  final int i;
+  TopicCard(this.i);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -60,7 +63,9 @@ class TopicCard extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, FormulaScreen.routeName);
+                },
               ),
             )
           ],
