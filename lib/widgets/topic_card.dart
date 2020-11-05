@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TopicCard extends StatelessWidget {
-  final int i;
-  TopicCard(this.i);
+  final String _topicName;
+  TopicCard(this._topicName);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,10 +18,10 @@ class TopicCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Text(
-                      'Common Topics',
+                      _topicName,
                       textAlign: TextAlign.left,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                   ),
                   Container(
