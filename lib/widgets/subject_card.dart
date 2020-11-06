@@ -37,7 +37,7 @@ class SubjectCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: LinearPercentIndicator(
-                      lineHeight: 20.0,
+                      lineHeight: 18.0,
                       percent: 1,
                       progressColor: Colors.green[800],
                     ),

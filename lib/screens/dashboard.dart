@@ -5,15 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
+  static final routeName = '/home';
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
   Future _subjectFuture;
+  bool toggleClass = false;
 
   Future _getSubjectFuture() {
     return Provider.of<Subjects>(context, listen: false).getAllSubject();
+  }
+
+  void toggleStandard(String standard) {
+    setState(() {
+      if (standard == 'XII') {
+        toggleClass = false;
+      } else {
+        toggleClass = true;
+      }
+    });
   }
 
   @override
@@ -34,6 +46,7 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0.0,
         actions: [],
       ),
+      drawer: AppDrawer(0),
       body: new Builder(builder: (BuildContext context) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,9 +68,9 @@ class _DashboardState extends State<Dashboard> {
                         "Class XI",
                         style: TextStyle(fontSize: 16),
                       ),
-                      onPressed: () {},
-                      color: Colors.blue,
-                      textColor: Colors.white,
+                      onPressed: () => toggleStandard('XII'),
+                      color: toggleClass ? Colors.transparent : Colors.blue,
+                      textColor: toggleClass ? Colors.black : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
@@ -70,9 +83,9 @@ class _DashboardState extends State<Dashboard> {
                         "Class XII",
                         style: TextStyle(fontSize: 16),
                       ),
-                      onPressed: () {},
-                      color: Colors.blue,
-                      textColor: Colors.white,
+                      onPressed: () => toggleStandard('XI'),
+                      color: toggleClass ? Colors.blue : Colors.transparent,
+                      textColor: toggleClass ? Colors.white : Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
@@ -109,7 +122,6 @@ class _DashboardState extends State<Dashboard> {
           ],
         );
       }),
-      drawer: AppDrawer(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:almond/providers/subject.dart';
 import 'package:almond/providers/topic.dart';
+import 'package:almond/screens/about_us.dart';
 import 'package:almond/screens/dashboard.dart';
 import 'package:almond/screens/formula_screen.dart';
 import 'package:almond/screens/topic_screen.dart';
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
         routes: {
           FormulaScreen.routeName: (ctx) => FormulaScreen(1),
           TopicScreen.routeName: (ctx) => TopicScreen(),
+          AboutUs.routeName: (ctx) => AboutUs(),
+          Dashboard.routeName: (ctx) => Dashboard(),
         },
       ),
     );
