@@ -2,20 +2,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Topics with ChangeNotifier {
-  List<String> _topicList = [];
+class Subjects with ChangeNotifier {
+  List<String> _subjectList = [];
 
-  List<String> get topicList {
-    return [..._topicList];
+  List<String> get subjectList {
+    return [..._subjectList];
   }
 
-  Future<void> getAllTopic() async {
-    const url = "http://192.168.1.141:3000/home/topics";
+  Future<void> getAllSubject() async {
+    const url = "http://192.168.1.141:3000/home/subjects";
     try {
       final response = await http.get(url);
       final data = json.decode(response.body);
       if (data == null) return;
-      _topicList = [...data['topics']];
+      _subjectList = [...data['subjects']];
       notifyListeners();
     } catch (error) {}
   }

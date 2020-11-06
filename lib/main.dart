@@ -1,6 +1,8 @@
+import 'package:almond/providers/subject.dart';
 import 'package:almond/providers/topic.dart';
 import 'package:almond/screens/dashboard.dart';
 import 'package:almond/screens/formula_screen.dart';
+import 'package:almond/screens/topic_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +19,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Topics(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Subjects(),
+        ),
       ],
-          child: MaterialApp(
+      child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -31,6 +36,7 @@ class MyApp extends StatelessWidget {
         home: Dashboard(),
         routes: {
           FormulaScreen.routeName: (ctx) => FormulaScreen(1),
+          TopicScreen.routeName: (ctx) => TopicScreen(),
         },
       ),
     );

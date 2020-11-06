@@ -1,26 +1,31 @@
-import 'package:almond/providers/subject.dart';
+import 'package:almond/providers/topic.dart';
 import 'package:almond/screens/app_drawer.dart';
-import 'package:almond/widgets/subject_card.dart';
+import 'package:almond/widgets/topic_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Dashboard extends StatefulWidget {
+class TopicScreen extends StatefulWidget {
+  static final routeName = '/topics';
+  final String standard;
+  final String subject;
+  TopicScreen({this.standard, this.subject});
+
   @override
-  _DashboardState createState() => _DashboardState();
+  _TopicScreenState createState() => _TopicScreenState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  Future _subjectFuture;
+class _TopicScreenState extends State<TopicScreen> {
+  Future _topicFuture;
 
-  Future _getSubjectFuture() {
-    return Provider.of<Subjects>(context, listen: false).getAllSubject();
+  Future _getTopicFuture() {
+    return Provider.of<Topics>(context, listen: false).getAllTopic();
   }
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      _subjectFuture = _getSubjectFuture();
+      _topicFuture = _getTopicFuture();
     });
   }
 
@@ -29,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text('Subjects'),
+          child: Text('Topics'),
         ),
         elevation: 0.0,
         actions: [],
@@ -45,18 +50,17 @@ class _DashboardState extends State<Dashboard> {
                 child: Text('Error Occurred!'),
               );
             } else {
-              return Consumer<Subjects>(
-                builder: (ctx, subjects, child) => ListView.builder(
-                  itemCount: subjects.subjectList.length,
-                  itemBuilder: (ctx, i) => SubjectCard(subjects.subjectList[i]),
+              return Consumer<Topics>(
+                builder: (ctx, topics, child) => ListView.builder(
+                  itemCount: topics.topicList.length,
+                  itemBuilder: (ctx, i) => TopicCard(topics.topicList[i]),
                 ),
               );
             }
           }
         },
-        future: _subjectFuture,
+        future: _topicFuture,
       ),
-      drawer: AppDrawer(),
     );
   }
 }
