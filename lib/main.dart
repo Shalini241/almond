@@ -1,4 +1,4 @@
-import 'package:almond/providers/subject.dart';
+import 'package:almond/providers/subjects.dart';
 import 'package:almond/providers/topic.dart';
 import 'package:almond/screens/about_us.dart';
 import 'package:almond/screens/dashboard.dart';

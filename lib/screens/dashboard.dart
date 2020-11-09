@@ -1,4 +1,4 @@
-import 'package:almond/providers/subject.dart';
+import 'package:almond/providers/subjects.dart';
 import 'package:almond/screens/app_drawer.dart';
 import 'package:almond/widgets/subject_card.dart';
 import 'package:flutter/material.dart';
@@ -13,27 +13,46 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   Future _subjectFuture;
   bool toggleClass = false;
+  bool _isInit = true;
+  bool _isLoading = false;
 
-  Future _getSubjectFuture() {
-    return Provider.of<Subjects>(context, listen: false).getAllSubject();
+  Future _getSubjectFuture(int classId) {
+    return Provider.of<Subjects>(context, listen: false).getSubjects(classId);
   }
 
   void toggleStandard(String standard) {
-    setState(() {
-      if (standard == 'XII') {
-        toggleClass = false;
-      } else {
-        toggleClass = true;
-      }
-    });
+    if (standard == 'XI') {
+      toggleClass = false;
+      _isLoading = true;
+      _subjectFuture = _getSubjectFuture(1).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    } else {
+      toggleClass = true;
+      _isLoading = true;
+      _subjectFuture = _getSubjectFuture(2).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      _subjectFuture = _getSubjectFuture();
-    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _subjectFuture = _getSubjectFuture(1);
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override
@@ -68,7 +87,7 @@ class _DashboardState extends State<Dashboard> {
                         "Class XI",
                         style: TextStyle(fontSize: 16),
                       ),
-                      onPressed: () => toggleStandard('XII'),
+                      onPressed: () => toggleStandard('XI'),
                       color: toggleClass ? Colors.transparent : Colors.blue,
                       textColor: toggleClass ? Colors.black : Colors.white,
                       shape: RoundedRectangleBorder(
@@ -83,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
                         "Class XII",
                         style: TextStyle(fontSize: 16),
                       ),
-                      onPressed: () => toggleStandard('XI'),
+                      onPressed: () => toggleStandard('XII'),
                       color: toggleClass ? Colors.blue : Colors.transparent,
                       textColor: toggleClass ? Colors.white : Colors.black,
                       shape: RoundedRectangleBorder(
@@ -95,29 +114,48 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             Expanded(
-              child: FutureBuilder(
-                builder: (ctx, dataSnapshot) {
-                  if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    if (dataSnapshot.error != null) {
-                      //...error handling
-                      return Center(
-                        child: Text('Error Occurred!'),
-                      );
-                    } else {
-                      return Consumer<Subjects>(
-                        builder: (ctx, subjects, child) => ListView.builder(
-                          itemCount: subjects.subjectList.length,
-                          itemBuilder: (ctx, i) =>
-                              SubjectCard(subjects.subjectList[i]),
-                        ),
-                      );
-                    }
-                  }
-                },
-                future: _subjectFuture,
-              ),
+              child: _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.blue[100],
+                      ),
+                    )
+                  : GestureDetector(
+                      onPanUpdate: (details) {
+                        if (details.delta.dx > 0) {
+                          //right swipe
+                          if (toggleClass == true) toggleStandard('XI');
+                        } else if (details.delta.dx < 0) {
+                          //Left Swipe
+                          if (toggleClass == false) toggleStandard('XII');
+                        }
+                      },
+                      child: FutureBuilder(
+                        builder: (ctx, dataSnapshot) {
+                          if (dataSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            if (dataSnapshot.error != null) {
+                              //...error handling
+                              return Center(
+                                child: Text('Error Occurred!'),
+                              );
+                            } else {
+                              return Consumer<Subjects>(
+                                builder: (ctx, subjects, child) =>
+                                    ListView.builder(
+                                  itemCount: subjects.subjectList.length,
+                                  itemBuilder: (ctx, i) => SubjectCard(
+                                      subjects.subjectList[i].subjectName),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                        future: _subjectFuture,
+                      ),
+                    ),
             ),
           ],
         );
