@@ -1,32 +1,46 @@
-import 'package:almond/providers/topic.dart';
-import 'package:almond/screens/app_drawer.dart';
+import 'package:almond/providers/topics.dart';
 import 'package:almond/widgets/topic_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopicScreen extends StatefulWidget {
   static final routeName = '/topics';
-  final String standard;
-  final String subject;
-  TopicScreen({this.standard, this.subject});
+  final int classId;
+  final int subjectId;
+
+  TopicScreen({this.classId, this.subjectId});
 
   @override
-  _TopicScreenState createState() => _TopicScreenState();
+  _TopicScreenState createState() =>
+      _TopicScreenState(subjectId: subjectId, classId: classId);
 }
 
 class _TopicScreenState extends State<TopicScreen> {
   Future _topicFuture;
+  final int classId;
+  final int subjectId;
+  bool _isInit = true;
+
+  _TopicScreenState({@required this.classId, @required this.subjectId});
 
   Future _getTopicFuture() {
-    return Provider.of<Topics>(context, listen: false).getAllTopic();
+    return Provider.of<Topics>(context, listen: false)
+        .getTopic(classId, subjectId);
   }
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
       _topicFuture = _getTopicFuture();
-    });
+    }
+    _isInit = false;
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -53,7 +67,8 @@ class _TopicScreenState extends State<TopicScreen> {
               return Consumer<Topics>(
                 builder: (ctx, topics, child) => ListView.builder(
                   itemCount: topics.topicList.length,
-                  itemBuilder: (ctx, i) => TopicCard(topics.topicList[i]),
+                  itemBuilder: (ctx, i) =>
+                      TopicCard(topics.topicList[i].topicName),
                 ),
               );
             }

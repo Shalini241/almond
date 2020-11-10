@@ -1,5 +1,5 @@
 import 'package:almond/providers/subjects.dart';
-import 'package:almond/providers/topic.dart';
+import 'package:almond/providers/topics.dart';
 import 'package:almond/screens/about_us.dart';
 import 'package:almond/screens/dashboard.dart';
 import 'package:almond/screens/formula_screen.dart';

@@ -21,6 +21,7 @@ class Subjects with ChangeNotifier {
         loadedSubjects.add(Subject(
           id: subject['Subject']['id'],
           subjectName: subject['Subject']['subject'],
+          classId: subject['clazz_id'],
         ));
       });
       _subjectList = loadedSubjects;

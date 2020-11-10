@@ -146,8 +146,8 @@ class _DashboardState extends State<Dashboard> {
                                 builder: (ctx, subjects, child) =>
                                     ListView.builder(
                                   itemCount: subjects.subjectList.length,
-                                  itemBuilder: (ctx, i) => SubjectCard(
-                                      subjects.subjectList[i].subjectName),
+                                  itemBuilder: (ctx, i) =>
+                                      SubjectCard(subjects.subjectList[i]),
                                 ),
                               );
                             }

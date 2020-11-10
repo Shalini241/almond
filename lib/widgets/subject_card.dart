@@ -1,10 +1,11 @@
+import 'package:almond/providers/subject.dart';
 import 'package:almond/screens/topic_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class SubjectCard extends StatelessWidget {
-  final String _subjectName;
-  SubjectCard(this._subjectName);
+  final Subject _subject;
+  SubjectCard(this._subject);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,7 +19,7 @@ class SubjectCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Text(
-                      _subjectName,
+                      _subject.subjectName,
                       textAlign: TextAlign.left,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
@@ -64,7 +65,15 @@ class SubjectCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, TopicScreen.routeName);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TopicScreen(
+                        classId: _subject.classId,
+                        subjectId: _subject.id,
+                      ),
+                    ),
+                  );
                 },
               ),
             )
