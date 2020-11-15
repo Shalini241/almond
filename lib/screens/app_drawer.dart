@@ -1,5 +1,7 @@
 import 'package:almond/screens/about_us.dart';
 import 'package:almond/screens/dashboard.dart';
+import 'package:almond/screens/help.dart';
+import 'package:almond/screens/my_profile.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -33,12 +35,15 @@ class _AppDrawerState extends State<AppDrawer> {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                setState(() {
-                  _currentSelected = 0;
+                if (_currentSelected != 0) {
+                  setState(() {
+                    _currentSelected = 0;
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        Dashboard.routeName, (Route<dynamic> route) => false);
+                  });
+                } else {
                   Navigator.pop(context);
-                  Navigator.pop(context);
-                  Navigator.pushReplacementNamed(context, Dashboard.routeName);
-                });
+                }
               },
               selected: true,
             ),
@@ -59,9 +64,15 @@ class _AppDrawerState extends State<AppDrawer> {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                setState(() {
-                  _currentSelected = 1;
-                });
+                if (_currentSelected != 1) {
+                  setState(() {
+                    _currentSelected = 1;
+                  });
+                  Navigator.of(context)
+                      .pushReplacementNamed(MyProfile.routeName);
+                } else {
+                  Navigator.pop(context);
+                }
               },
             ),
           ),
@@ -80,11 +91,18 @@ class _AppDrawerState extends State<AppDrawer> {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                setState(() {
-                  _currentSelected = 2;
-                });
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(AboutUs.routeName);
+                if (_currentSelected != 2) {
+                  setState(() {
+                    _currentSelected = 2;
+                  });
+                  // Navigator.of(context).pushNamedAndRemoveUntil(
+                  //     AboutUs.routeName,
+                  //     ModalRoute.withName(Dashboard.routeName));
+
+                  Navigator.of(context).pushReplacementNamed(AboutUs.routeName);
+                } else {
+                  Navigator.pop(context);
+                }
               },
             ),
           ),
@@ -103,9 +121,17 @@ class _AppDrawerState extends State<AppDrawer> {
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
-                setState(() {
-                  _currentSelected = 3;
-                });
+                if (_currentSelected != 3) {
+                  setState(() {
+                    _currentSelected = 3;
+                  });
+                  // Navigator.of(context).pushNamedAndRemoveUntil(
+                  //     Help.routeName, ModalRoute.withName(Dashboard.routeName));
+
+                  Navigator.of(context).pushReplacementNamed(Help.routeName);
+                } else {
+                  Navigator.pop(context);
+                }
               },
             ),
           ),

@@ -1,17 +1,21 @@
 class Formula {
+  final int id;
   final String name;
-  final String description;
-  final String topic;
-  final String standard;
-  final String subject;
-  final String info;
+  final String content;
+  final String lhs;
+  final String fullFormula;
+  final int topicId;
+  final int clazzId;
+  final int subjectId;
 
   Formula({
+    this.id,
     this.name,
-    this.description,
-    this.topic,
-    this.standard,
-    this.subject,
-    this.info,
+    this.content,
+    this.lhs,
+    this.fullFormula,
+    this.topicId,
+    this.clazzId,
+    this.subjectId,
   });
 }

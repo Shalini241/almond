@@ -3,6 +3,8 @@ import 'package:almond/providers/topics.dart';
 import 'package:almond/screens/about_us.dart';
 import 'package:almond/screens/dashboard.dart';
 import 'package:almond/screens/formula_screen.dart';
+import 'package:almond/screens/help.dart';
+import 'package:almond/screens/my_profile.dart';
 import 'package:almond/screens/topic_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +41,9 @@ class MyApp extends StatelessWidget {
           FormulaScreen.routeName: (ctx) => FormulaScreen(1),
           TopicScreen.routeName: (ctx) => TopicScreen(),
           AboutUs.routeName: (ctx) => AboutUs(),
+          Help.routeName: (ctx) => Help(),
           Dashboard.routeName: (ctx) => Dashboard(),
+          MyProfile.routeName: (ctx) => MyProfile(),
         },
       ),
     );
