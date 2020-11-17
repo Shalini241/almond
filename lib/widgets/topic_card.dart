@@ -1,10 +1,11 @@
+import 'package:almond/providers/topic.dart';
 import 'package:almond/screens/formula_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TopicCard extends StatelessWidget {
-  final String _topicName;
-  TopicCard(this._topicName);
+  final Topic _topic;
+  TopicCard(this._topic);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,7 +19,7 @@ class TopicCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    _topicName,
+                    _topic.topicName,
                     textAlign: TextAlign.left,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   ),
@@ -63,7 +64,7 @@ class TopicCard extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, FormulaScreen.routeName);
+                Navigator.pushNamed(context, FormulaScreen.routeName, arguments: _topic.id);
               },
             ),
           )

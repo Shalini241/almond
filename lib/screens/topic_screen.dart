@@ -68,7 +68,7 @@ class _TopicScreenState extends State<TopicScreen> {
                 builder: (ctx, topics, child) => ListView.builder(
                   itemCount: topics.topicList.length,
                   itemBuilder: (ctx, i) =>
-                      TopicCard(topics.topicList[i].topicName),
+                      TopicCard(topics.topicList[i]),
                 ),
               );
             }

@@ -1,14 +1,25 @@
+import 'package:almond/providers/formulae.dart';
 import 'package:almond/widgets/formula_card.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
-class FormulaScreen extends StatelessWidget {
+class FormulaScreen extends StatefulWidget {
   static final routeName = '/topic_card';
 
-  final int i;
-  FormulaScreen(this.i);
+  @override
+  _FormulaScreenState createState() => _FormulaScreenState();
+}
+
+class _FormulaScreenState extends State<FormulaScreen> {
+  Future _formulaFuture;
+
   @override
   Widget build(BuildContext context) {
+    final topicId = ModalRoute.of(context).settings.arguments as int;
+    _formulaFuture = Provider.of<Formulae>(context, listen: false)
+        .getFormulaForTopic(topicId);
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -21,7 +32,28 @@ class FormulaScreen extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            FormulaCard(),
+            FutureBuilder(
+              builder: (ctx, dataSnapshot) {
+                if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  if (dataSnapshot.error != null) {
+                    //...error handling
+                    return Center(
+                      child: Text('Error Occurred!'),
+                    );
+                  } else {
+                    return Consumer<Formulae>(
+                      builder: (ctx, formulas, child) => FormulaCard(
+                        formula: formulas.formulaeList[0],
+                      ),
+                    );
+                  }
+                }
+              },
+              future: _formulaFuture,
+            ),
+            //FormulaCard(),
             Container(
               padding: EdgeInsets.only(top: 10),
               width: MediaQuery.of(context).size.width,

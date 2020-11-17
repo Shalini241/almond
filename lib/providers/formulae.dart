@@ -10,17 +10,26 @@ class Formulae with ChangeNotifier {
     return [..._formualeList];
   }
 
-  Formulae(this._formualeList);
-
-  Future<void> getAllFormulae() async {
-    const url = "http://192.168.1.141:3000/allformulae";
+  Future<void> getFormulaForTopic(int topicId) async {
+    var url = "http://192.168.1.141:3000/formulae/topic?topicId=$topicId";
     try {
       final response = await http.get(url);
       final data = json.decode(response.body);
-      //final List<Formula> loadedFormulae = [];
       if (data == null) return;
-      print(data);
-      //notifyListeners();
+      final List<Formula> loadedFormulae = [];
+      data['formulae'].forEach((formula) {
+        loadedFormulae.add(Formula(
+          id: formula['id'],
+          name: formula['name'],
+          description: formula['description'],
+          lhs: formula['lhs'],
+          fullFormula: formula['fullFormula'],
+          topicId: topicId,
+        ));
+      });
+      _formualeList = loadedFormulae;
+      print(json.encode(_formualeList));
+      notifyListeners();
     } catch (error) {}
   }
 }

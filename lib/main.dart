@@ -1,3 +1,4 @@
+import 'package:almond/providers/formulae.dart';
 import 'package:almond/providers/subjects.dart';
 import 'package:almond/providers/topics.dart';
 import 'package:almond/screens/about_us.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Subjects(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Formulae(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Dashboard(),
         routes: {
-          FormulaScreen.routeName: (ctx) => FormulaScreen(1),
+          FormulaScreen.routeName: (ctx) => FormulaScreen(),
           TopicScreen.routeName: (ctx) => TopicScreen(),
           AboutUs.routeName: (ctx) => AboutUs(),
           Help.routeName: (ctx) => Help(),

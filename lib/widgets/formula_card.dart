@@ -7,26 +7,22 @@ import 'package:flutter/material.dart';
 
 class FormulaCard extends StatefulWidget {
   final TeXViewRenderingEngine renderingEngine;
+  final Formula formula;
 
-  static Formula formula = Formula(
-      id: 123,
-      clazzId: 1,
-      name: 'Union',
-      lhs: r"""
-     When \(a \ne 0 \), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-     $$x = ?$$<br>""",
-      fullFormula: r"""
-     When \(a \ne 0 \), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-     $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$<br>""",
-      subjectId: 1,
-      topicId: 1);
+  // final Formula formula = Formula(
+  //     id: 123,
+  //     name: 'Union',
+  //     lhs: r"""
+  //    When \(a \ne 0 \), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+  //    $$x = ?$$<br>""",
+  //     fullFormula: r"""
+  //    When \(a \ne 0 \), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+  //    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$<br>""",
+  //     topicId: 1);
 
-  FormulaCard({this.renderingEngine = const TeXViewRenderingEngine.katex()});
-
-  static TeXViewWidget fullquadraticEquation =
-      _teXViewWidget(formula.fullFormula);
-
-  static TeXViewWidget lhsquadraticEquation = _teXViewWidget(formula.lhs);
+  FormulaCard(
+      {this.renderingEngine = const TeXViewRenderingEngine.katex(),
+      this.formula});
 
   static TeXViewWidget _teXViewWidget(String body) {
     return TeXViewColumn(
@@ -48,10 +44,12 @@ class FormulaCard extends StatefulWidget {
   }
 
   @override
-  _FormulaCardState createState() => _FormulaCardState();
+  _FormulaCardState createState() => _FormulaCardState(formula);
 }
 
 class _FormulaCardState extends State<FormulaCard> {
+  Formula formula;
+  _FormulaCardState(this.formula);
   bool showAns = false;
   @override
   Widget build(BuildContext context) {
@@ -100,8 +98,8 @@ class _FormulaCardState extends State<FormulaCard> {
                   renderingEngine: widget.renderingEngine,
                   child: TeXViewColumn(children: [
                     showAns
-                        ? FormulaCard.fullquadraticEquation
-                        : FormulaCard.lhsquadraticEquation
+                        ? FormulaCard._teXViewWidget(formula.fullFormula)
+                        : FormulaCard._teXViewWidget(formula.lhs)
                   ]),
                   // style: TeXViewStyle(
                   //   margin: TeXViewMargin.all(10),
