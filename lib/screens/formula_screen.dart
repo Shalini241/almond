@@ -13,12 +13,23 @@ class FormulaScreen extends StatefulWidget {
 
 class _FormulaScreenState extends State<FormulaScreen> {
   Future _formulaFuture;
+  bool _isInit = false;
+
+  void getFormulaFuture() {
+    _isInit = true;
+    setState(() {
+      _formulaFuture =
+          Provider.of<Formulae>(context, listen: false).getNextFormula();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final topicId = ModalRoute.of(context).settings.arguments as int;
-    _formulaFuture = Provider.of<Formulae>(context, listen: false)
-        .getFormulaForTopic(topicId);
+    if (!_isInit) {
+      _formulaFuture = Provider.of<Formulae>(context, listen: false)
+          .getFormulaForTopic(topicId);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +56,10 @@ class _FormulaScreenState extends State<FormulaScreen> {
                   } else {
                     return Consumer<Formulae>(
                       builder: (ctx, formulas, child) => FormulaCard(
-                        formula: formulas.formulaeList[0],
+                        formula: _isInit
+                            ? formulas.nextFormula
+                            : formulas.formulaeList[0],
+                        getNext: getFormulaFuture,
                       ),
                     );
                   }

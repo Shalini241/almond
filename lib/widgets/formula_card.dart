@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class FormulaCard extends StatefulWidget {
   final TeXViewRenderingEngine renderingEngine;
   final Formula formula;
+  final Function getNext;
 
   // final Formula formula = Formula(
   //     id: 123,
@@ -22,7 +23,8 @@ class FormulaCard extends StatefulWidget {
 
   FormulaCard(
       {this.renderingEngine = const TeXViewRenderingEngine.katex(),
-      this.formula});
+      this.formula,
+      this.getNext});
 
   static TeXViewWidget _teXViewWidget(String body) {
     return TeXViewColumn(
@@ -44,12 +46,14 @@ class FormulaCard extends StatefulWidget {
   }
 
   @override
-  _FormulaCardState createState() => _FormulaCardState(formula);
+  _FormulaCardState createState() => _FormulaCardState(formula, getNext);
 }
 
 class _FormulaCardState extends State<FormulaCard> {
   Formula formula;
-  _FormulaCardState(this.formula);
+  Function getNext;
+  _FormulaCardState(this.formula, this.getNext);
+
   bool showAns = false;
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,7 @@ class _FormulaCardState extends State<FormulaCard> {
                       ),
                     )),
                 Text(
-                  'Formula 1',
+                  formula.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
@@ -131,7 +135,7 @@ class _FormulaCardState extends State<FormulaCard> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () => getNext(),
                   ),
                 )
               : Container(),
@@ -149,7 +153,7 @@ class _FormulaCardState extends State<FormulaCard> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () => getNext(),
                   ),
                 )
               : Container(),
