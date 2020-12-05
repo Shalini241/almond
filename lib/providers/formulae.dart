@@ -32,7 +32,6 @@ class Formulae with ChangeNotifier {
         topicId: topicId,
       ));
       _formualeList = loadedFormulae;
-      print(json.encode(_formualeList));
       notifyListeners();
     } catch (error) {}
   }
@@ -52,8 +51,6 @@ class Formulae with ChangeNotifier {
         topicId: data['formulae']['TopicId'],
       );
       _nextFormula = formula;
-
-      print(data);
       notifyListeners();
     } catch (error) {}
   }

@@ -14,36 +14,13 @@ class FormulaCardBack extends StatelessWidget {
               top: Radius.circular(5),
             ),
           ),
-          child: Column(
-            children: [
-              Container(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    width: 100.0,
-                    height: 40.0,
-                    child: const Card(
-                      //green[200]
-                      color: const Color(0xffA5D6A7),
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        // 2E7D32 green[800], 388E3C green[700]
-                        child: Text(
-                          'PERFECT',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: const Color(0xff388E3C),
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      elevation: 0.0,
-                    ),
-                  )),
-              Text(
-                'Formula 1',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Formula 1',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
           ),
         ),
         Container(

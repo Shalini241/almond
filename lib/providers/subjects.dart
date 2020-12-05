@@ -25,7 +25,6 @@ class Subjects with ChangeNotifier {
         ));
       });
       _subjectList = loadedSubjects;
-      print(json.encode(_subjectList));
       notifyListeners();
     } catch (error) {}
   }

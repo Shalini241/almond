@@ -1,3 +1,4 @@
+import 'package:almond/providers/auth.dart';
 import 'package:almond/providers/subjects.dart';
 import 'package:almond/screens/app_drawer.dart';
 import 'package:almond/widgets/subject_card.dart';
@@ -80,9 +81,18 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Subjects'),
-        ),
+        title: Row(children: <Widget>[
+          Expanded(
+            child: Center(
+              child: Text('Subjects'),
+            ),
+          ),
+          IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {
+                Provider.of<Auth>(context, listen: false).logout();
+              })
+        ]),
         elevation: 0.0,
         actions: [],
       ),
