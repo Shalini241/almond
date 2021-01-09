@@ -1,4 +1,4 @@
-import 'package:almond/providers/user.dart';
+import 'package:almond/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -20,7 +20,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> signUp(User user) async {
-    const url = 'http://192.168.1.141:3000/user/signup';
+    const url = 'http://192.168.1.9:3000/user/signup';
     var reqBody = {
       'first_name': user.firstName,
       'last_name': user.lastName,
@@ -43,7 +43,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login(String email, String password) async {
-    const url = 'http://192.168.1.141:3000/user/signin';
+    const url = 'http://192.168.1.9:3000/user/signin';
     var reqBody = {'email': email, 'password': password};
 
     try {

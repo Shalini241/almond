@@ -12,7 +12,7 @@ class Topics with ChangeNotifier {
 
   Future<void> getTopic(int classId, int subjectId) async {
     var url =
-        "http://192.168.1.141:3000/home/topics?class=$classId&subject=$subjectId";
+        "http://192.168.1.9:3000/home/topics?class=$classId&subject=$subjectId";
     try {
       final response = await http.get(url);
       final data = json.decode(response.body);

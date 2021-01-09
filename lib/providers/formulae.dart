@@ -17,7 +17,7 @@ class Formulae with ChangeNotifier {
   }
 
   Future<void> getFormulaForTopic(int topicId) async {
-    var url = "http://192.168.1.141:3000/formulae/topic?topicId=$topicId";
+    var url = "http://192.168.1.9:3000/formulae/topic?topicId=$topicId";
     try {
       final response = await http.get(url);
       final data = json.decode(response.body);
@@ -37,7 +37,7 @@ class Formulae with ChangeNotifier {
   }
 
   Future<void> getNextFormula() async {
-    var url = "http://192.168.1.141:3000/formulae/next";
+    var url = "http://192.168.1.9:3000/formulae/next";
     try {
       final response = await http.get(url);
       final data = json.decode(response.body);

@@ -1,5 +1,6 @@
 import 'package:almond/providers/auth.dart';
 import 'package:almond/providers/formulae.dart';
+import 'package:almond/providers/progress.dart';
 import 'package:almond/providers/subjects.dart';
 import 'package:almond/providers/topics.dart';
 import 'package:almond/screens/about_us.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => UserProgress(),
         ),
       ],
       child: Consumer<Auth>(

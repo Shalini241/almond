@@ -11,7 +11,7 @@ class Subjects with ChangeNotifier {
   }
 
   Future<void> getSubjects(int classId) async {
-    var url = "http://192.168.1.141:3000/home/subjects?class=$classId";
+    var url = "http://192.168.1.9:3000/home/subjects?class=$classId";
     try {
       final response = await http.get(url);
       final data = json.decode(response.body);

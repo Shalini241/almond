@@ -1,5 +1,5 @@
 import 'package:almond/providers/auth.dart';
-import 'package:almond/providers/user.dart';
+import 'package:almond/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
